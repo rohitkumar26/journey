@@ -8,7 +8,8 @@ router.get('/',async(req,res)=>{
     try{
         
     const result=await Journey.find(req.query).exec();
-    res.send(result);
+    // res.send(result);
+    res.render('journey',{result});
     }
     catch(err)
     {
@@ -19,7 +20,8 @@ router.post('/',async(req,res)=>{
     try{
     const newjourney= new Journey (req.body);
     await newjourney.save();
-    res.send({msg:"data entered successfully..."})
+    //res.send({msg:"data entered successfully..."})
+    res.redirect('/journey')
     }
     catch(err)
     {
