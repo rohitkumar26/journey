@@ -4,18 +4,20 @@ const mongoose = require('mongoose');
 const ejs = require('ejs');
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
+var methodOverride = require('method-override')
 
 //getting routes
-const journeyroute=require('./routes/journey');
+const journeyroute = require('./routes/journey');
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(express.urlencoded()) //for parsing form data in request.
+app.use(methodOverride('_method'))
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 
 //using routes
-app.use('/journey',journeyroute);
+app.use('/journey', journeyroute);
 
 
 //connecting mongodb

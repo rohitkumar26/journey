@@ -1,51 +1,55 @@
-const express= require('express');
-const router=express.Router();
-
-const Journey=require('../models/journey')
-
-
-router.get('/',async(req,res)=>{
-    try{
-        
-    const result=await Journey.find(req.query).exec();
-    // res.send(result);
-    res.render('journey',{result});
+const express = require('express');
+const router = express.Router();
+const moment = require('moment');
+const Journey = require('../models/journey')
+router.get('/', async (req, res) => {
+    try {
+        const result = await Journey.find(req.query).sort({ date: -1 }).exec();
+        const currentdate = moment().format('YYYY-MM-DD');
+        res.render('journey', { result, currentdate });
     }
-    catch(err)
-    {
+    catch (err) {
         res.send(err);
     }
 })
-router.post('/',async(req,res)=>{
-    try{
-    const newjourney= new Journey (req.body);
-    await newjourney.save();
-    //res.send({msg:"data entered successfully..."})
-    res.redirect('/journey')
+router.post('/', async (req, res) => {
+    try {
+        const newjourney = new Journey(req.body);
+        await newjourney.save();
+        res.redirect('/journey')
     }
-    catch(err)
-    {
-        res.send(err);
+    catch (err) {
+        res.send(err.message);
     }
 })
-router.delete('/:id',async(req,res)=>{
+router.delete('/:id', async (req, res) => {
     try {
         await Journey.findByIdAndDelete(req.params.id);
-        res.send({msg:"deleted successfully...."})
-        
+        // res.send({ msg: "deleted successfully...." })
+        res.redirect('/journey');
     } catch (err) {
         res.send(err);
     }
 })
-
-router.put('/:id',async(req,res)=>{
+router.put('/:id', async (req, res) => {
     try {
-        const result=await Journey.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators: true});
-        res.status(201).send(result);
+        const result = await Journey.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        res.redirect('/journey');
     } catch (error) {
         res.send(error);
     }
 })
 
+router.get('/edit/:id', async (req, res) => {
+    try {
+        const result = await Journey.findOne({ _id: req.params.id }).exec();
 
-module.exports=router;
+        const currentdate = moment(result.date).format('YYYY-MM-DD');
+        res.render('editjournal', { result, currentdate })
+    }
+    catch (err) {
+        res.send(err);
+    }
+
+})
+module.exports = router;

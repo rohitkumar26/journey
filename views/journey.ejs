@@ -1,22 +1,45 @@
 <div class="columns is-centered">
-    <div class="column is-half">
-<h1 class="title is-1">Journey</h1>
-<form action="/journey" method="POST">
- 
+  <div class="column is-half">
+    <h1 class="title is-1 has-text-white">Journey</h1>
+    <form action="/journey" method="POST">
+      <label for="date" class="label has-text-white">Date</label>
+      <input
+        type="date"
+        name="date"
+        value="<%= currentdate %>"
+        class="input"
+        required
+      /><br />
+
+      <label for="data" class="label has-text-white">New Entry</label>
+      <textarea name="data" class="textarea" required></textarea>
+      <!-- <input type="text" class="input"name="data"> -->
+
+      <input type="submit" class="button is-primary mt-2" value="Submit" />
+    </form>
+    <% if(typeof result !== 'undefined') { var currentdate=" ";result.map(el=>{
+    if(currentdate!==el.date.toString()){%>
+
+    <h1 class="has-text-centered title is-5 mt-3 has-text-white">
+      <%= el.date.toString().substr(0,15) %>
+    </h1>
+    <% currentdate=el.date.toString();} %>
     
-    <label for="date" class="label" >Date</label>
-    <input type="date" name="date" ><br>
+    <a class="mx-2 " href="/journey/edit/<%=el._id%>"
+      ><i class="fa fa-edit is-pulled-right mx-1 fa-lg " style="color: white;"></i
+    ></a>
 
-    <label for="data" class="label" >New Entry</label>
-    <textarea name="data"  class="textarea"></textarea>
-    <!-- <input type="text" class="input"name="data"> -->
+    <form action="/journey/<%=el._id%>?_method=DELETE" method="post" style="display: inline-block;" class="is-pulled-right">
+      <input type="hidden" name="_method" value="DELETE" />
+      <button type="submit"  style="cursor:pointer;" class="mx-2 ">
+           <i class="fa fa-trash  mx-1" aria-hidden="true"></i/> 
+      </button>
+    </form>
+ 
+    <p class="journalbox mb-3">
+      <%= el.data %>
+    </p>
 
-<input type="submit" class="button is-primary mt-2" value="Submit">
-</form>
-<%  if(typeof result !== 'undefined') { result.forEach(el=>{%> 
-    <h1 class="has-text-centered title is-5"><%= el.date.toString().substr(0,15) %></h1>
-    <h1 class="has-text-centered"><code><%= el.data %>  </code></h1>
-<% })} %> 
-
-</div>
+    <% })} %>
+  </div>
 </div>

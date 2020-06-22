@@ -1,0 +1,25 @@
+<div class="columns is-centered">
+  <div class="column is-half">
+    <h1 class="title is-1 has-text-white">Edit Journey</h1>
+    <form action="/journey/<%=result._id%>?_method=PUT" method="post">
+      <input type="hidden" name="_method" value="PUT" />
+
+      <label for="date" class="label has-text-white">Date</label>
+      <input
+        type="date"
+        name="date"
+        value="<%= currentdate %>"
+        class="input"
+        required
+      /><br />
+
+      <label for="data" class="label has-text-white">New Entry</label>
+      <textarea name="data" class="textarea" required>
+ <%=result.data%></textarea
+      >
+      <!-- <input type="text" class="input"name="data"> -->
+
+      <input type="submit" class="button is-primary mt-2" value="Update" />
+    </form>
+  </div>
+</div>
