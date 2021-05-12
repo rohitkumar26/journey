@@ -2,7 +2,7 @@ body {
   margin: 0px;
   font-family: "Raleway", sans-serif;
   font-weight: 500;
-  background-color: #763626;
+  /* background-color: #763626; */
 }
 .journalbox {
   padding: 10px;
@@ -12,6 +12,6 @@ body {
   white-space: pre-line;
   box-shadow: 5px 5px #888888;
   min-height: 100px;
-  background-color: #2a3132;
-  color: white;
+  /* background-color: #f5a278; */
+  /* color: white; */
 }

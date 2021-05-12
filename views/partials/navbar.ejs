@@ -1,0 +1,25 @@
+<div class="columns">
+  <div class="column is-one-fifth">
+    <% if("previous" in results) {%>
+    <a
+      href="/todos?page=<%=results.previous.page%>&limit=<%=results.previous.limit%>"
+      class="button is-small"
+      >Previous</a
+    >
+
+    <% } else{%>
+    <a href="#" class="button is-small" disabled>Previous</a>
+    <% } %>
+    <span class="button is-small has-text-white has-background-dark"
+      ><%=currentpage%></span
+    ><% if("next" in results) {%>
+    <a
+      href="/todos?page=<%=results.next.page%>&limit=<%=results.next.limit%>"
+      class="button is-small"
+      >Next page</a
+    >
+    <% } else{%>
+    <a href="#" class="button is-small" disabled>Next page</a>
+    <% } %>
+  </div>
+</div>
